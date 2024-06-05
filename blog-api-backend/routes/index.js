@@ -1,3 +1,4 @@
 const posts = require("./posts");
+const users = require("./users");
 
-module.exports = { posts };
+module.exports = { posts, users };

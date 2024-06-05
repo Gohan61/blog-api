@@ -29,6 +29,7 @@ exports.user_create = [
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
+    const username = req.body.username;
 
     try {
       bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
@@ -39,7 +40,7 @@ exports.user_create = [
           password: hashedPassword,
           author: req.body.author,
         });
-        if (!errors.isEmpty()) {
+        if (!errors.isEmpty() || User.exists({ username: username })) {
           return res.json({ errors, user });
         } else if (err) {
           throw new Error("Error");
@@ -74,6 +75,7 @@ exports.user_update = [
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
+    const username = req.body.username;
 
     try {
       bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
@@ -85,7 +87,7 @@ exports.user_update = [
           author: req.body.author,
           _id: req.params.id,
         });
-        if (!errors.isEmpty()) {
+        if (!errors.isEmpty() || User.exists({ username: username })) {
           return res.json({ errors, user });
         } else if (err) {
           throw new Error("Error");

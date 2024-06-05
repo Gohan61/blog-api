@@ -53,3 +53,49 @@ exports.user_create = [
     }
   }),
 ];
+
+exports.user_update = [
+  body("first_name", "Your first name must be at least 2 characters")
+    .trim()
+    .isLength({ min: 2 })
+    .escape(),
+  body("last_name", "Your last name must be at least 2 characters")
+    .trim()
+    .isLength({ min: 2 })
+    .escape(),
+  body("username", "Username must be at least 5 characters")
+    .trim()
+    .isLength({ min: 5 })
+    .escape(),
+  body("password", "Password must be at least 5 characters")
+    .trim()
+    .isLength({ min: 5 })
+    .escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    try {
+      bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
+        const user = new User({
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          username: req.body.username,
+          password: hashedPassword,
+          author: req.body.author,
+          _id: req.params.id,
+        });
+        if (!errors.isEmpty()) {
+          return res.json({ errors, user });
+        } else if (err) {
+          throw new Error("Error");
+        } else {
+          await User.findByIdAndUpdate(req.params.id, user);
+          res.redirect("/" + req.params.id);
+        }
+      });
+    } catch (err) {
+      return next(err);
+    }
+  }),
+];

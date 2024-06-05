@@ -12,14 +12,9 @@ exports.allposts_get = asyncHandler(async (req, res, next) => {
 
 exports.post_get = asyncHandler(async (req, res, next) => {
   const post = await Post.findById(req.params.postId).exec();
+  const comments = await Comment.find({ postId: req.params.postId }).exec();
 
-  return res.json(post);
-});
-
-exports.post_comment_get = asyncHandler(async (req, res, next) => {
-  const comments = await Comment.find({}).exec();
-
-  return res.json(comments);
+  return res.json({ post, comments });
 });
 
 exports.post_create = [

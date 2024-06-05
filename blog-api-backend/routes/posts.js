@@ -11,4 +11,6 @@ router.post("/", posts_controller.post_create);
 
 router.put("/:postId", posts_controller.post_update);
 
+router.delete("/:postId", posts_controller.post_delete);
+
 module.exports = router;

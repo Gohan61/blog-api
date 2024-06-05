@@ -67,3 +67,16 @@ exports.post_update = [
     }
   }),
 ];
+
+exports.post_delete = asyncHandler(async (req, res, next) => {
+  const post = await Post.findById(req.params.id).exec();
+
+  if (post === null) {
+    const err = new Error("Post not found");
+    err.status = 404;
+    return next(err);
+  } else {
+    await Post.findByIdAndDelete(req.params.id);
+    res.redirect("/posts");
+  }
+});

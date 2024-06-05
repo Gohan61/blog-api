@@ -2,6 +2,7 @@ const User = require("../models/users");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
+const passport = require("passport");
 
 exports.author_get = asyncHandler(async (req, res, next) => {
   const author = await User.findById(req.body.authorId);
@@ -99,5 +100,15 @@ exports.user_update = [
     } catch (err) {
       return next(err);
     }
+  }),
+];
+
+exports.user_login = [
+  body("username").trim().escape(),
+  body("password").trim().escape(),
+
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/",
   }),
 ];

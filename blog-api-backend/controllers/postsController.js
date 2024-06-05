@@ -41,3 +41,29 @@ exports.post_create = [
     }
   }),
 ];
+
+exports.post_update = [
+  body("date").trim().isDate().escape(),
+  body("title").trim().isLength({ min: 5 }).escape(),
+  body("text").trim().isLength({ min: 20 }).escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    const post = new Post({
+      authorID: req.user._id,
+      date: req.body.date,
+      title: req.body.title,
+      text: req.body.text,
+      published: req.body.published,
+      _id: req.params.id,
+    });
+
+    if (!errors.isEmpty()) {
+      return res.json({ errors, post });
+    } else {
+      const updatedItem = await Post.findByIdAndUpdate(req.params.id, post);
+      res.redirect("/posts/" + req.params.id);
+    }
+  }),
+];

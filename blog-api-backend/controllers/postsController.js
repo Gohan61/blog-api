@@ -26,7 +26,7 @@ exports.post_create = [
     const errors = validationResult(req);
 
     const post = new Post({
-      authorID: req.params.authorId,
+      authorID: req.user._id,
       date: req.body.date,
       title: req.body.title,
       text: req.body.text,

@@ -7,6 +7,6 @@ router.get("/", posts_controller.allposts_get);
 
 router.get("/:postId", posts_controller.post_get);
 
-router.post("/newpost/:authorId", posts_controller.post_create);
+router.post("/newpost", posts_controller.post_create);
 
 module.exports = router;

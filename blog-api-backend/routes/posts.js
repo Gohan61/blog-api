@@ -9,4 +9,6 @@ router.get("/:postId", posts_controller.post_get);
 
 router.get("/:postId/comments", posts_controller.post_comment_get);
 
+router.post("/newpost/:authorId", posts_controller.post_create);
+
 module.exports = router;

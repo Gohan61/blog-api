@@ -1,6 +1,8 @@
 const Post = require("../models/posts");
 const Comment = require("../models/comments");
 const asyncHandler = require("express-async-handler");
+const { post } = require("../app");
+const { body, validationResult } = require("express-validator");
 
 exports.allposts_get = asyncHandler(async (req, res, next) => {
   const allPosts = await Post.find({}).exec();
@@ -19,3 +21,28 @@ exports.post_comment_get = asyncHandler(async (req, res, next) => {
 
   return res.json(comments);
 });
+
+exports.post_create = [
+  body("date").trim().isDate().escape(),
+  body("title").trim().isLength({ min: 5 }).escape(),
+  body("text").trim().isLength({ min: 20 }).escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    const post = new Post({
+      authorID: req.params.authorId,
+      date: req.body.date,
+      title: req.body.title,
+      text: req.body.text,
+      published: req.body.published,
+    });
+
+    if (!errors.isEmpty()) {
+      return res.json({ errors, post });
+    } else {
+      await post.save();
+      return res.json(post);
+    }
+  }),
+];

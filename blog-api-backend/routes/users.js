@@ -9,6 +9,6 @@ router.post("/signup", user_controller.user_create);
 
 router.post("/signin", user_controller.user_login);
 
-router.put("/:authorId", user_controller.user_update);
+router.put("/:userId", user_controller.user_update);
 
 module.exports = router;

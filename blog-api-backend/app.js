@@ -19,6 +19,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
+app.use("/", routes.home);
 app.use("/posts", routes.posts);
 app.use("/users", routes.users);
 

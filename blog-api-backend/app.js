@@ -21,6 +21,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Routes
 app.use("/", routes.home);
 app.use("/posts", routes.posts);
+app.use("/comment", routes.comments);
 app.use("/admin", routes.admin);
 app.use("/admin/posts", routes.adminPosts);
 app.use("/users", routes.users);

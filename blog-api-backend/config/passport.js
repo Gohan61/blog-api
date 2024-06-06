@@ -1,8 +1,13 @@
 const passport = require("passport");
-const LocalStrategy = require("passport-local");
-const connection = require("./database");
 const User = require("../models/users");
 const bcrypt = require("bcryptjs");
+const LocalStrategy = require("passport-local");
+const connection = require("./database");
+const JWTstrategy = require("passport-jwt").Strategy;
+const ExtractJWT = require("passport-jwt").ExtractJwt;
+const opts = {};
+opts.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = "secret";
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
@@ -19,5 +24,20 @@ passport.use(
     } catch (err) {
       return done(err);
     }
+  })
+);
+
+passport.use(
+  new JWTstrategy(opts, (jwt_payload, done) => {
+    User.findOne({ id: jwt_payload.username }, function (err, user) {
+      if (err) {
+        return done(err, false);
+      }
+      if (user) {
+        return done(null, user);
+      } else {
+        return done(null, false);
+      }
+    });
   })
 );

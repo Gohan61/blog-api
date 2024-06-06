@@ -7,4 +7,10 @@ router.get("/", posts_controller.allposts_get);
 
 router.get("/:postId", posts_controller.post_get);
 
+router.post("/", posts_controller.post_create);
+
+router.put("/:postId", posts_controller.post_update);
+
+router.delete("/:postId", posts_controller.post_delete);
+
 module.exports = router;

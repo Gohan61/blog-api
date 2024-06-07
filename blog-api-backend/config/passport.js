@@ -17,7 +17,6 @@ passport.use(
         return done(null, false, { message: "Incorrect username" });
       }
       const match = await bcrypt.compare(password, user.password);
-
       if (!match) {
         return done(null, false, { message: "Incorrect password" });
       }
@@ -30,15 +29,15 @@ passport.use(
 
 passport.use(
   new JWTstrategy(opts, (jwt_payload, done) => {
-    User.findOne({ id: jwt_payload }, function (err, user) {
-      if (err) {
-        return done(err, false);
-      }
-      if (user) {
-        return done(null, user);
-      } else {
+    try {
+      const user = User.findOne({ id: jwt_payload });
+      if (!user) {
         return done(null, false);
+      } else {
+        return done(null, user);
       }
-    });
+    } catch (err) {
+      return done(err);
+    }
   })
 );

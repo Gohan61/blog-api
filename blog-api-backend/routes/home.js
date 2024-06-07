@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", (req, res, next) => res.json("Home"));
+router.get("/", (req, res, next) => res.json("The Blog"));
 
 module.exports = router;

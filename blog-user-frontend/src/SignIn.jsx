@@ -1,10 +1,42 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 export default function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [setLoginStatus] = useOutletContext();
   let navigate = useNavigate();
+  const fetchToken = (event) => {
+    event.preventDefault();
+
+    fetch("http://localhost:3000/users/signin", {
+      mode: "cors",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        if (res.token !== undefined) {
+          localStorage.setItem("Token", "Bearer " + res.token);
+          setLoginStatus(true);
+          navigate("/");
+        } else {
+          throw new Error("Error during authentication");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <h1>Sign in</h1>
@@ -25,30 +57,7 @@ export default function SignIn() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button
-          type="submit"
-          onClick={(e) => {
-            e.preventDefault(),
-              fetch("http://localhost:3000/users/signin", {
-                mode: "cors",
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  username: username,
-                  password: password,
-                }),
-              })
-                .then((res) => {
-                  return res.json();
-                })
-                .then((res) => {
-                  localStorage.setItem("Token", "Bearer " + res.token);
-                  navigate("/");
-                });
-          }}
-        >
+        <button type="submit" onClick={fetchToken}>
           Submit
         </button>
       </form>

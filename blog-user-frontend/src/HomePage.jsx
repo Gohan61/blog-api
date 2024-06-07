@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export default function HomePage() {
@@ -15,7 +14,6 @@ export default function HomePage() {
   return (
     <>
       <h1>Welcome to {`${title}`}</h1>
-      <Link to={"signin"}>Sign in</Link>
     </>
   );
 }

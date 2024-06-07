@@ -128,8 +128,8 @@ exports.user_login = [
           { expiresIn: "10d" },
           (err, token) => {
             if (err) console.log(err);
+
             res.status(200).json({ token: token });
-            localStorage.setItem("Token", "Bearer " + token);
           }
         );
       }

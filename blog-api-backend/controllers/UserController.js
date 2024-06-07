@@ -129,6 +129,7 @@ exports.user_login = [
           (err, token) => {
             if (err) console.log(err);
             res.status(200).json({ token: token });
+            localStorage.setItem("Token", "Bearer " + token);
           }
         );
       }

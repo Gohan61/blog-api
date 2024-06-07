@@ -10,7 +10,6 @@ exports.admin_login = [
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
-    const userDB = await User.findOne(req.user, "author").exec();
 
     if (!errors.isEmpty()) {
       res.json({ message: "Validation Failed", errors: errors.array() });
@@ -22,7 +21,7 @@ exports.admin_login = [
       }
       if (!user) {
         res.json({ error: "User not found", user: user });
-      } else if (!userDB.author) {
+      } else if (!user.author) {
         res.json({ message: "You are not an author" });
       } else {
         req.login(user, { session: false });

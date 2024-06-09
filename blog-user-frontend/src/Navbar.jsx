@@ -16,6 +16,7 @@ export default function Navbar({ loginStatus, setLoginStatus }) {
       ) : (
         <Link to={"signin"}>Sign in</Link>
       )}
+      <Link to={"posts"}>Posts</Link>
     </>
   );
 }

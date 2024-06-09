@@ -5,6 +5,7 @@ export default function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [setLoginStatus] = useOutletContext();
+  const [error, setError] = useState("");
   let navigate = useNavigate();
   const fetchToken = (event) => {
     event.preventDefault();
@@ -33,7 +34,7 @@ export default function SignIn() {
         }
       })
       .catch((error) => {
-        console.log(error);
+        setError(error);
       });
   };
 
@@ -61,6 +62,7 @@ export default function SignIn() {
           Submit
         </button>
       </form>
+      <p className="error">{error.message}</p>
     </>
   );
 }

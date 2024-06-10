@@ -19,7 +19,10 @@ export default function Navbar({ loginStatus, setLoginStatus }) {
             Logout
           </button>
         ) : (
-          <Link to={"signin"}>Sign in</Link>
+          <>
+            <Link to={"signin"}>Sign in</Link>
+            <Link to={"signup"}>Sign up</Link>
+          </>
         )}
         <Link to={"posts"}>Posts</Link>
       </nav>

@@ -8,6 +8,7 @@ import HomePage from "./components/HomePage.jsx";
 import Posts from "./components/Posts.jsx";
 import Postdetail from "./components/Postdetail.jsx";
 import Comment from "./components/Comment.jsx";
+import Signup from "./components/Signup.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
       { path: "posts", element: <Posts /> },
       { path: "/posts/:postID", element: <Postdetail /> },
       { path: "/comment/:postID", element: <Comment /> },
+      { path: "/signup", element: <Signup /> },
     ],
   },
 ]);

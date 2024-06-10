@@ -8,22 +8,20 @@ exports.new_comment = [
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
-    const user = await User.findById(req.user_id);
 
     const comment = new Comment({
-      userID: user._id,
-      username: user.username,
-      timestamp: Date.now(),
+      userID: req.body.userID,
+      username: req.body.username,
+      timestamp: req.body.timestamp,
       text: req.body.text,
       postID: req.params.postId,
     });
 
     if (!errors.isEmpty()) {
-      return res.json({ errors, comment });
+      return res.status(500).json({ errors, comment });
     } else {
       await comment.save();
-      res.json(comment);
-      res.redirect("/posts" + req.params.postId);
+      return res.status(200);
     }
   }),
 ];

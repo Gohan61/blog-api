@@ -42,13 +42,13 @@ exports.user_create = [
           password: hashedPassword,
           author: req.body.author,
         });
-        if (!errors.isEmpty() || User.exists({ username: username })) {
-          return res.json({ errors, user });
+        if (!errors.isEmpty() || (await User.exists({ username: username }))) {
+          return res.status(500).json({ errors, user });
         } else if (err) {
           throw new Error("Error");
         } else {
           await user.save();
-          res.redirect("/");
+          return res.status(200).json({ message: "You are signed up" });
         }
       });
     } catch (err) {
@@ -129,13 +129,11 @@ exports.user_login = [
           (err, token) => {
             if (err) console.log(err);
 
-            res
-              .status(200)
-              .json({
-                token: token,
-                userID: user._id,
-                username: user.username,
-              });
+            res.status(200).json({
+              token: token,
+              userID: user._id,
+              username: user.username,
+            });
           }
         );
       }

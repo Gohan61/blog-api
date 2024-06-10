@@ -12,7 +12,7 @@ exports.allposts_get = asyncHandler(async (req, res, next) => {
 
 exports.post_get = asyncHandler(async (req, res, next) => {
   const post = await Post.findById(req.params.postId).exec();
-  const comments = await Comment.find({ postId: req.params.postId }).exec();
+  const comments = await Comment.find({ postID: req.params.postId }).exec();
 
   return res.json({ post, comments });
 });

@@ -129,7 +129,13 @@ exports.user_login = [
           (err, token) => {
             if (err) console.log(err);
 
-            res.status(200).json({ token: token });
+            res
+              .status(200)
+              .json({
+                token: token,
+                userID: user._id,
+                username: user.username,
+              });
           }
         );
       }

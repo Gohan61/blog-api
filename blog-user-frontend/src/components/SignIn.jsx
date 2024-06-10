@@ -5,7 +5,7 @@ import "../stylesheets/index.css";
 export default function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [setLoginStatus] = useOutletContext();
+  const [setLoginStatus, loginStatus] = useOutletContext();
   const [error, setError] = useState("");
   let navigate = useNavigate();
   const fetchToken = (event) => {
@@ -27,7 +27,10 @@ export default function SignIn() {
       })
       .then((res) => {
         if (res.token !== undefined) {
+          console.log(res);
           localStorage.setItem("Token", "Bearer " + res.token);
+          localStorage.setItem("userID", res.userID);
+          localStorage.setItem("username", res.username);
           setLoginStatus(true);
           navigate("/");
         } else {

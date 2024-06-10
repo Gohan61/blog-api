@@ -11,6 +11,8 @@ export default function Navbar({ loginStatus, setLoginStatus }) {
           <button
             onClick={() => {
               localStorage.removeItem("Token");
+              localStorage.removeItem("username");
+              localStorage.removeItem("userID");
               setLoginStatus(false);
             }}
           >

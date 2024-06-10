@@ -26,7 +26,7 @@ export default function Posts() {
         <h3 className="postTitle">{element.title}</h3>
         <p className="text">{element.text}</p>
         <p className="date">{element.date}</p>
-        <Link to={element._id} state={{ id: element._id }}>
+        <Link to={element._id} state={{ postID: element._id }}>
           See details + comments
         </Link>
       </div>

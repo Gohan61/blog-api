@@ -8,7 +8,7 @@ export default function Postdetail() {
   const [setLoginStatus, loginStatus] = useOutletContext();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/posts/${state.id}`, {
+    fetch(`http://localhost:3000/posts/${state.postID}`, {
       mode: "cors",
       method: "GET",
       headers: {

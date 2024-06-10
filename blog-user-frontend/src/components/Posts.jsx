@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Posts() {
   const [posts, setPosts] = useState([]);
@@ -25,9 +26,9 @@ export default function Posts() {
         <h3 className="postTitle">{element.title}</h3>
         <p className="text">{element.text}</p>
         <p className="date">{element.date}</p>
-        <p className="authorID" style={{ display: "none" }}>
-          {element.authorID}
-        </p>
+        <Link to={element._id} state={{ id: element._id }}>
+          See details + comments
+        </Link>
       </div>
     );
   });

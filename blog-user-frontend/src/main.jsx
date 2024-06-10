@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import SignIn from "./components/SignIn.jsx";
 import HomePage from "./components/HomePage.jsx";
 import Posts from "./components/Posts.jsx";
+import Postdetail from "./components/Postdetail.jsx";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "signin", element: <SignIn /> },
       { path: "posts", element: <Posts /> },
+      { path: "/posts/:postID", element: <Postdetail /> },
     ],
   },
 ]);

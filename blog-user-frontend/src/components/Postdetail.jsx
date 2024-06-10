@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation, useOutletContext } from "react-router-dom";
 
 export default function Postdetail() {
   const [post, setPost] = useState("No post");
   const { state } = useLocation();
   const [loading, setLoading] = useState(true);
+  const [setLoginStatus, loginStatus] = useOutletContext();
 
   useEffect(() => {
     fetch(`http://localhost:3000/posts/${state.id}`, {
@@ -50,6 +51,16 @@ export default function Postdetail() {
         {post.post.authorID}
       </p>
       <h2>Comments</h2>
+      {loginStatus ? (
+        <Link
+          to={`/comment/${post.post._id}`}
+          state={{ postID: post.post._id }}
+        >
+          Add comment
+        </Link>
+      ) : (
+        ""
+      )}
       {comments}
     </div>
   );

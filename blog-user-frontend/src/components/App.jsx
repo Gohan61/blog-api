@@ -18,7 +18,7 @@ function App() {
         loginStatus={loginStatus}
         setLoginStatus={setLoginStatus}
       ></Navbar>
-      <Outlet context={[setLoginStatus]}></Outlet>
+      <Outlet context={[setLoginStatus, loginStatus]}></Outlet>
     </>
   );
 }

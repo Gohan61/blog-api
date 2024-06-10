@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { formatRelative, subDays } from "date-fns";
 
 export default function Comment() {
   const { state } = useLocation();
@@ -22,7 +23,7 @@ export default function Comment() {
         userID: localStorage.getItem("userID"),
         username: localStorage.getItem("username"),
         postID: state.postID,
-        timestamp: Date.now(),
+        timestamp: formatRelative(subDays(new Date(), 6), new Date()),
       }),
     })
       .then((res) => {
@@ -47,7 +48,7 @@ export default function Comment() {
       <h1>Add comment</h1>
       <form action="" method="POST">
         <label htmlFor="text">Your comment:</label>
-        <input
+        <textarea
           type="text"
           id="text"
           name="text"

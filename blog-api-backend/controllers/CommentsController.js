@@ -4,7 +4,10 @@ const Comment = require("../models/comments");
 const User = require("../models/users");
 
 exports.new_comment = [
-  body("text").trim().isLength({ min: 1 }).escape(),
+  body("text", "Comment needs to be at least two characters")
+    .trim()
+    .isLength({ min: 2 })
+    .escape(),
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
@@ -21,7 +24,7 @@ exports.new_comment = [
       return res.status(500).json({ errors, comment });
     } else {
       await comment.save();
-      return res.status(200);
+      return res.status(200).json({ message: "Comment saved" });
     }
   }),
 ];

@@ -24,8 +24,11 @@ export default function Posts() {
     return (
       <div className="post" key={element._id}>
         <h3 className="postTitle">{element.title}</h3>
-        <p className="text">{element.text}</p>
         <p className="date">{element.date}</p>
+        <p className="published">
+          {element.published ? "Published" : "Not published"}
+        </p>
+        {console.log(element)}
         <Link to={element._id} state={{ postID: element._id }}>
           See details + comments
         </Link>

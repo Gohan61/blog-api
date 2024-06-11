@@ -28,3 +28,17 @@ exports.new_comment = [
     }
   }),
 ];
+
+exports.comment_delete = asyncHandler(async (req, res, next) => {
+  const comment = await Comment.findById(req.params.commentId).exec();
+  console.log(comment);
+
+  if (comment === null) {
+    const err = new Error("Comment not found");
+    err.status = 404;
+    return next(err);
+  } else {
+    await Comment.findByIdAndDelete(req.params.commentId);
+    return res.json({ message: "Comment deleted" });
+  }
+});

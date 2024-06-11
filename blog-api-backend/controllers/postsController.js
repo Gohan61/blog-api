@@ -1,5 +1,6 @@
 const Post = require("../models/posts");
 const Comment = require("../models/comments");
+const User = require("../models/users");
 const asyncHandler = require("express-async-handler");
 const { post } = require("../app");
 const { body, validationResult } = require("express-validator");
@@ -13,8 +14,9 @@ exports.allposts_get = asyncHandler(async (req, res, next) => {
 exports.post_get = asyncHandler(async (req, res, next) => {
   const post = await Post.findById(req.params.postId).exec();
   const comments = await Comment.find({ postID: req.params.postId }).exec();
+  const author = await User.findById(post.authorID.toString()).exec();
 
-  return res.json({ post, comments });
+  return res.json({ post, comments, author });
 });
 
 exports.post_create = [

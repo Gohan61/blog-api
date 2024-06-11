@@ -29,6 +29,12 @@ router.put(
   posts_controller.post_update
 );
 
+router.put(
+  "/publish/:postId",
+  passport.authenticate("jwt", { session: false }),
+  posts_controller.post_publish
+);
+
 router.delete(
   "/:postId",
   passport.authenticate("jwt", { session: false }),

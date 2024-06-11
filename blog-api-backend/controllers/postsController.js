@@ -94,3 +94,25 @@ exports.post_delete = asyncHandler(async (req, res, next) => {
     res.redirect("/posts");
   }
 });
+
+exports.post_publish = asyncHandler(async (req, res, next) => {
+  const post = await Post.findById(req.params.postId);
+  let publishedValue = !post.published;
+
+  const newPost = new Post({
+    authorID: post.authorID,
+    date: post.date,
+    title: post.title,
+    text: post.text,
+    published: publishedValue,
+    _id: post._id,
+  });
+  if (post === null) {
+    const err = new Error("Post not found");
+    err.status = 404;
+    return next(err);
+  } else {
+    await Post.findByIdAndUpdate(post._id, newPost);
+    return res.json({ message: "Post deleted" });
+  }
+});

@@ -4,9 +4,17 @@ const passport = require("passport");
 
 const posts_controller = require("../controllers/postsController");
 
-router.get("/", posts_controller.allposts_get);
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  posts_controller.allposts_get
+);
 
-router.get("/:postId", posts_controller.post_get);
+router.get(
+  "/:postId",
+  passport.authenticate("jwt", { session: false }),
+  posts_controller.post_get
+);
 
 router.post(
   "/",

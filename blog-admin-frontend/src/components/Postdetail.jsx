@@ -12,6 +12,7 @@ export default function Postdetail() {
       mode: "cors",
       method: "GET",
       headers: {
+        Authorization: localStorage.getItem("Token"),
         "Content-Type": "application/json",
       },
     })
@@ -44,14 +45,14 @@ export default function Postdetail() {
         ))}
       </div>
     );
-  console.log(post);
+
   return (
     <div className="postDetail" key={post.post._id}>
       <h1>{post.post.title}</h1>
       <p>
         {post.author["first_name"]} {post.author["last_name"]}
       </p>
-      <p>{post.post.date}</p>
+      <p>{post.post.date.slice(0, post.post.date.indexOf("T"))}</p>
       <p>{post.post.text}</p>
       <p className="authorID" style={{ display: "none" }}>
         {post.post.authorID}

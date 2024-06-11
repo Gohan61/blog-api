@@ -27,7 +27,9 @@ export default function Posts() {
         <Link to={"/posts/newpost"}>New post</Link>
         <div className="post" key={element._id}>
           <h3 className="postTitle">{element.title}</h3>
-          <p className="date">{element.date}</p>
+          <p className="date">
+            {element.date.slice(0, element.date.indexOf("T"))}
+          </p>
           <p className="published">
             {element.published ? "Published" : "Not published"}
           </p>

@@ -5,8 +5,14 @@ const asyncHandler = require("express-async-handler");
 const { post } = require("../app");
 const { body, validationResult } = require("express-validator");
 
-exports.allposts_get = asyncHandler(async (req, res, next) => {
+exports.allposts_admin_get = asyncHandler(async (req, res, next) => {
   const allPosts = await Post.find({}).exec();
+
+  return res.json(allPosts);
+});
+
+exports.allposts_get = asyncHandler(async (req, res, next) => {
+  const allPosts = await Post.find({ published: true }).exec();
 
   return res.json(allPosts);
 });

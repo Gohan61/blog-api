@@ -8,7 +8,7 @@ const comments_controller = require("../controllers/CommentsController");
 router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
-  posts_controller.allposts_get
+  posts_controller.allposts_admin_get
 );
 
 router.get(

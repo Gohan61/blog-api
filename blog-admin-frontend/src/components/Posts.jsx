@@ -9,6 +9,7 @@ export default function Posts() {
       mode: "cors",
       method: "GET",
       headers: {
+        Authorization: localStorage.getItem("Token"),
         "Content-Type": "application/json",
       },
     })
@@ -22,17 +23,20 @@ export default function Posts() {
 
   const postItems = posts.map((element) => {
     return (
-      <div className="post" key={element._id}>
-        <h3 className="postTitle">{element.title}</h3>
-        <p className="date">{element.date}</p>
-        <p className="published">
-          {element.published ? "Published" : "Not published"}
-        </p>
-        {console.log(element)}
-        <Link to={element._id} state={{ postID: element._id }}>
-          See details + comments
-        </Link>
-      </div>
+      <>
+        <Link to={"/posts/newpost"}>New post</Link>
+        <div className="post" key={element._id}>
+          <h3 className="postTitle">{element.title}</h3>
+          <p className="date">{element.date}</p>
+          <p className="published">
+            {element.published ? "Published" : "Not published"}
+          </p>
+
+          <Link to={element._id} state={{ postID: element._id }}>
+            See details + comments
+          </Link>
+        </div>
+      </>
     );
   });
 

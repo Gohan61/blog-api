@@ -36,15 +36,21 @@ export default function Postdetail() {
         {post.comments.map((comment) => (
           <div className="comment" key={comment._id}>
             <p className="username">{comment.username}</p>
+            <p className="timestamp">
+              {comment.timestamp.toLocaleString("en-GB")}
+            </p>
             <p>{comment.text}</p>
           </div>
         ))}
       </div>
     );
-
+  console.log(post);
   return (
     <div className="postDetail" key={post.post._id}>
       <h1>{post.post.title}</h1>
+      <p>
+        {post.author["first_name"]} {post.author["last_name"]}
+      </p>
       <p>{post.post.date}</p>
       <p>{post.post.text}</p>
       <p className="authorID" style={{ display: "none" }}>

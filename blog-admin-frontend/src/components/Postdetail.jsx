@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useOutletContext } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useOutletContext,
+  useNavigate,
+} from "react-router-dom";
 
 export default function Postdetail() {
   const [post, setPost] = useState("No post");
@@ -7,6 +12,7 @@ export default function Postdetail() {
   const [loading, setLoading] = useState(true);
   const [setLoginStatus, loginStatus] = useOutletContext();
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:3000/admin/posts/${state.postID}`, {
@@ -29,6 +35,32 @@ export default function Postdetail() {
   if (loading) {
     return <p>Loading post details</p>;
   }
+
+  const handlePublish = (e) => {
+    e.preventDefault();
+
+    fetch(`http://localhost:3000/admin/posts/publish/${state.postID}`, {
+      method: "PUT",
+      mode: "cors",
+      headers: {
+        Authorization: localStorage.getItem("Token"),
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        if (res.message !== "Post deleted") {
+          throw new Error("Comment not found");
+        } else {
+          navigate("/posts");
+        }
+      })
+      .catch((err) => {
+        setError(err.msg);
+      });
+  };
 
   const handleCommentDelete = (e) => {
     e.preventDefault();
@@ -85,6 +117,7 @@ export default function Postdetail() {
   return (
     <div className="postDetail" key={post.post._id}>
       <h1>{post.post.title}</h1>
+      <p>{post.post.published ? "Published" : "Not published"}</p>
       <p>
         {post.author["first_name"]} {post.author["last_name"]}
       </p>
@@ -93,6 +126,9 @@ export default function Postdetail() {
       <p className="authorID" style={{ display: "none" }}>
         {post.post.authorID}
       </p>
+      <button onClick={(e) => handlePublish(e)}>
+        {post.post.published ? "Unpublish" : "Publish"}
+      </button>
       <h2>Comments</h2>
       {loginStatus ? (
         <Link

@@ -21,14 +21,20 @@ exports.post_get = asyncHandler(async (req, res, next) => {
 
 exports.post_create = [
   body("date").trim().isDate().escape(),
-  body("title").trim().isLength({ min: 5 }).escape(),
-  body("text").trim().isLength({ min: 20 }).escape(),
+  body("title", "Title must be 5 characters at least")
+    .trim()
+    .isLength({ min: 5 })
+    .escape(),
+  body("text", "Text must be 20 characters at least")
+    .trim()
+    .isLength({ min: 20 })
+    .escape(),
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
 
     const post = new Post({
-      authorID: req.user._id,
+      authorID: req.body.authorID,
       date: req.body.date,
       title: req.body.title,
       text: req.body.text,
@@ -39,7 +45,7 @@ exports.post_create = [
       return res.json({ errors, post });
     } else {
       await post.save();
-      return res.json(post);
+      return res.json({ message: "Post saved" });
     }
   }),
 ];

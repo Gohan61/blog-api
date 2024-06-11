@@ -5,6 +5,7 @@ import SignIn from "./components/Signin.jsx";
 import "./stylesheets/index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from "../../blog-user-frontend/src/components/HomePage.jsx";
+import Posts from "./components/Posts.jsx";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: "signin", element: <SignIn /> },
+      { path: "posts", element: <Posts /> },
     ],
   },
 ]);

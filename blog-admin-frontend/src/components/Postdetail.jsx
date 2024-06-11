@@ -6,6 +6,7 @@ export default function Postdetail() {
   const { state } = useLocation();
   const [loading, setLoading] = useState(true);
   const [setLoginStatus, loginStatus] = useOutletContext();
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetch(`http://localhost:3000/admin/posts/${state.postID}`, {
@@ -29,6 +30,37 @@ export default function Postdetail() {
     return <p>Loading post details</p>;
   }
 
+  const handleCommentDelete = (e) => {
+    e.preventDefault();
+
+    fetch(`http://localhost:3000/admin/posts/comment/${e.target.id}`, {
+      mode: "cors",
+      method: "DELETE",
+      headers: {
+        Authorization: localStorage.getItem("Token"),
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        if (res.message !== "Comment deleted") {
+          throw new Error("Comment not found");
+        } else {
+          const deleteComment = post.comments.findIndex((comment) => {
+            return comment._id === e.target.id;
+          });
+          const newPost = { ...post };
+          newPost.comments.splice(deleteComment, 1);
+          setPost(newPost);
+        }
+      })
+      .catch((err) => {
+        setError(err.msg);
+      });
+  };
+
   const comments =
     post.comments.length === 0 ? (
       <p>No comments</p>
@@ -41,6 +73,10 @@ export default function Postdetail() {
               {comment.timestamp.toLocaleString("en-GB")}
             </p>
             <p>{comment.text}</p>
+            <button id={comment._id} onClick={(e) => handleCommentDelete(e)}>
+              Delete comment
+            </button>
+            {error}
           </div>
         ))}
       </div>

@@ -24,7 +24,6 @@ export default function Posts() {
   const postItems = posts.map((element) => {
     return (
       <>
-        <Link to={"/posts/newpost"}>New post</Link>
         <div className="post" key={element._id}>
           <h3 className="postTitle">{element.title}</h3>
           <p className="date">
@@ -45,6 +44,7 @@ export default function Posts() {
   return (
     <>
       <h2>All blog posts</h2>
+      <Link to={"/posts/newpost"}>New post</Link>
       {postItems}
     </>
   );

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 
 export default function Posts() {
   const [posts, setPosts] = useState([]);
+  const [setLoginStatus, loginStatus] = useOutletContext();
 
   useEffect(() => {
     fetch("http://localhost:3000/admin/posts", {
@@ -43,9 +44,15 @@ export default function Posts() {
 
   return (
     <>
-      <h2>All blog posts</h2>
-      <Link to={"/posts/newpost"}>New post</Link>
-      {postItems}
+      {loginStatus ? (
+        <>
+          <h2>All blog posts</h2>
+          <Link to={"/posts/newpost"}>New post</Link>
+          {postItems}
+        </>
+      ) : (
+        <p>Please login first</p>
+      )}
     </>
   );
 }

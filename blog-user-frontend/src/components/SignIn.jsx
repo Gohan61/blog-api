@@ -11,7 +11,7 @@ export default function SignIn() {
   const fetchToken = (event) => {
     event.preventDefault();
 
-    fetch("https://blog-api-backend-odin.fly.dev/signin", {
+    fetch("https://blog-api-backend-odin.fly.dev/users/signin", {
       mode: "cors",
       method: "POST",
       headers: {

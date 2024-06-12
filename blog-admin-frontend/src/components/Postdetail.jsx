@@ -104,7 +104,7 @@ export default function Postdetail() {
             <p className="timestamp">
               {comment.timestamp.toLocaleString("en-GB")}
             </p>
-            <p>{comment.text}</p>
+            <p className="commentText">{comment.text}</p>
             <button id={comment._id} onClick={(e) => handleCommentDelete(e)}>
               Delete comment
             </button>
@@ -117,11 +117,15 @@ export default function Postdetail() {
   return (
     <div className="postDetail" key={post.post._id}>
       <h1>{post.post.title}</h1>
-      <p>{post.post.published ? "Published" : "Not published"}</p>
-      <p>
+      <p className="published">
+        {post.post.published ? "Published" : "Not published"}
+      </p>
+      <p className="author">
         {post.author["first_name"]} {post.author["last_name"]}
       </p>
-      <p>{post.post.date.slice(0, post.post.date.indexOf("T"))}</p>
+      <p className="datePost">
+        {post.post.date.slice(0, post.post.date.indexOf("T"))}
+      </p>
       <p>{post.post.text}</p>
       <p className="authorID" style={{ display: "none" }}>
         {post.post.authorID}

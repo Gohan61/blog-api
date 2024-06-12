@@ -87,3 +87,20 @@ form {
   margin-right: auto;
   gap: 20px;
 }
+
+.author {
+  font-style: italic;
+}
+
+.datePost {
+  font-weight: bold;
+}
+
+.username {
+  text-decoration: underline rebeccapurple;
+}
+
+.commentText {
+  font-weight: 600;
+  color: #535bf2;
+}

@@ -15,7 +15,7 @@ export default function Postdetail() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/admin/posts/${state.postID}`, {
+    fetch(`https://blog-api-backend-odin.fly.dev/admin/posts/${state.postID}`, {
       mode: "cors",
       method: "GET",
       headers: {
@@ -39,14 +39,17 @@ export default function Postdetail() {
   const handlePublish = (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:3000/admin/posts/publish/${state.postID}`, {
-      method: "PUT",
-      mode: "cors",
-      headers: {
-        Authorization: localStorage.getItem("Token"),
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      `https://blog-api-backend-odin.fly.dev/admin/posts/publish/${state.postID}`,
+      {
+        method: "PUT",
+        mode: "cors",
+        headers: {
+          Authorization: localStorage.getItem("Token"),
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((res) => {
         return res.json();
       })
@@ -65,14 +68,17 @@ export default function Postdetail() {
   const handleCommentDelete = (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:3000/admin/posts/comment/${e.target.id}`, {
-      mode: "cors",
-      method: "DELETE",
-      headers: {
-        Authorization: localStorage.getItem("Token"),
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      `https://blog-api-backend-odin.fly.dev/admin/posts/comment/${e.target.id}`,
+      {
+        mode: "cors",
+        method: "DELETE",
+        headers: {
+          Authorization: localStorage.getItem("Token"),
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((res) => {
         return res.json();
       })

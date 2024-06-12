@@ -6,7 +6,7 @@ export default function Posts() {
   const [setLoginStatus, loginStatus] = useOutletContext();
 
   useEffect(() => {
-    fetch("http://localhost:3000/admin/posts", {
+    fetch("https://blog-api-backend-odin.fly.dev/admin/posts", {
       mode: "cors",
       method: "GET",
       headers: {

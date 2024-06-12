@@ -9,7 +9,7 @@ export default function PostsForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    fetch("http://localhost:3000/admin/posts", {
+    fetch("https://blog-api-backend-odin.fly.dev/admin/posts", {
       mode: "cors",
       method: "POST",
       headers: {

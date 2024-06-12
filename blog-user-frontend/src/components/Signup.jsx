@@ -9,7 +9,7 @@ export default function Signup() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    fetch("http://localhost:3000/users/signup", {
+    fetch("https://blog-api-backend-odin.fly.dev/users/signup", {
       mode: "cors",
       method: "POST",
       headers: {

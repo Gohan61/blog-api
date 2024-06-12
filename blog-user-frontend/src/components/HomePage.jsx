@@ -4,7 +4,7 @@ export default function HomePage() {
   const [title, setTitle] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3000/", { mode: "cors" })
+    fetch("https://blog-api-backend-odin.fly.dev/", { mode: "cors" })
       .then((response) => {
         return response.json();
       })

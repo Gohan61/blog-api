@@ -5,7 +5,7 @@ export default function Posts() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/posts", {
+    fetch("https://blog-api-backend-odin.fly.dev/posts", {
       mode: "cors",
       method: "GET",
       headers: {

@@ -6,7 +6,7 @@ export default function Comment() {
   const { state } = useLocation();
   const [comment, setComment] = useState("");
   const navigate = useNavigate();
-  const commentURL = `http://localhost:3000/comment/${state.postID}`;
+  const commentURL = `https://blog-api-backend-odin.fly.dev/comment/${state.postID}`;
   const [error, setError] = useState("");
 
   const handleSubmit = (event) => {

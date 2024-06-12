@@ -15,9 +15,11 @@ app.set("view engine", "jade");
 
 const corsOptions = {
   origin: [
-    "https://main--blog-api-user-frontend.netlify.app/",
-    "https://main--blog-admin-frontend-odin.netlify.app/",
+    "https://main--blog-api-user-frontend.netlify.app",
+    "https://main--blog-admin-frontend-odin.netlify.app",
   ],
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));

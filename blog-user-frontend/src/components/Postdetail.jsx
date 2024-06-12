@@ -51,7 +51,7 @@ export default function Postdetail() {
       <p>
         {post.author["first_name"]} {post.author["last_name"]}
       </p>
-      <p>{post.post.slice(0, post.post.date.indexOf("T"))}</p>
+      <p>{post.post.date.slice(0, post.post.date.indexOf("T"))}</p>
       <p>{post.post.text}</p>
       <p className="authorID" style={{ display: "none" }}>
         {post.post.authorID}

@@ -13,7 +13,14 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
-app.use(cors());
+const corsOptions = {
+  origin: [
+    "https://main--blog-api-user-frontend.netlify.app/",
+    "https://main--blog-admin-frontend-odin.netlify.app/",
+  ],
+};
+
+app.use(cors(corsOptions));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

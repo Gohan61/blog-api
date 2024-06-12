@@ -27,7 +27,6 @@ export default function SignIn() {
       })
       .then((res) => {
         if (res.token !== undefined) {
-          console.log(res);
           localStorage.setItem("Token", "Bearer " + res.token);
           localStorage.setItem("userID", res.userID);
           localStorage.setItem("username", res.username);

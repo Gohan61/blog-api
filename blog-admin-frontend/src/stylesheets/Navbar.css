@@ -5,3 +5,7 @@ nav {
   height: 100px;
   padding: 30px;
 }
+
+nav button {
+  height: 45px;
+}

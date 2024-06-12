@@ -8,6 +8,7 @@ import HomePage from "../../blog-user-frontend/src/components/HomePage.jsx";
 import Posts from "./components/Posts.jsx";
 import Postdetail from "./components/Postdetail.jsx";
 import PostsForm from "./components/PostsForm.jsx";
+import Comment from "./components/Comment.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
       { path: "posts", element: <Posts /> },
       { path: "posts/:postID", element: <Postdetail /> },
       { path: "posts/newpost", element: <PostsForm /> },
+      { path: "/comment/:postID", element: <Comment /> },
     ],
   },
 ]);
